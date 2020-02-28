@@ -16,9 +16,34 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
+
+        debug {
+            manifestPlaceholders = [app_name: "DebugSkillbox"]
+        }
+
+        qa {
+            manifestPlaceholders = [app_name: "QaSkillbox"]
+        }
+
         release {
+            signingConfig signingConfigs.debug
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            manifestPlaceholders = [app_name: "ReleaseSkillbox"]
+        }
+    }
+
+    flavorDimensions "version"
+
+    productFlavors {
+        paid {
+            dimension "version"
+            applicationIdSuffix ".paid"
+        }
+
+        free {
+            dimension "version"
+            applicationIdSuffix ".free"
         }
     }
 }
